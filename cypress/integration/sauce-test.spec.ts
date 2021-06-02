@@ -1,23 +1,35 @@
 /// <reference types= "cypress"/>
 
 import { saucepage } from "../src/pages/sauce-page"
-const saucepages = new saucepage();
+import BasePage from "../src/pages/base-page";
 
+const saucepages = new saucepage();
+const basePage:BasePage = new BasePage();
 // Cypress.on('uncaught:exception', (err) => {
 //     return false
 //    })
 
 
-
+let myLoginInfo: any;
 describe('login sauce', () => {
-    it('go to page login', () => {
-        saucepages.goToPage();
+
+
+    before( () => {
+        
+        cy.fixture('info.json').then(i => myLoginInfo = i);
+        basePage.goToPage();
+        cy.log('entered website')
         
     });
     
+    it('tring login with invalid user and password', () => {
+        saucepages.userPassword('invalid_user','invalid_password');
+        saucepages.invalidDataErrorMsg();
+    });
+
     it('type user & password', () => {
 
-        saucepages.userPassword();
+        saucepages.userPassword(myLoginInfo.user, myLoginInfo.password);
 
     });
     

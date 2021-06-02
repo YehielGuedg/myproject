@@ -1,7 +1,6 @@
-import { BasePage } from "./base-page";
+import  BasePage  from "./base-page";
 import { saucelector } from "./sauce-page-locators";
-const user = 'standard_user';
-const password = 'secret_sauce';
+
 
 export class saucepage extends BasePage {
     private saucepageUrl: string;
@@ -16,6 +15,8 @@ export class saucepage extends BasePage {
         
     }
 
+    
+
     compareMenuOptionsToList() {
         cy.get(saucelector.menuBtn).click();
         cy.fixture('sauce-info.json').then((menuOptions) => {
@@ -27,11 +28,16 @@ export class saucepage extends BasePage {
         })
     }
 
-    userPassword() {
-        cy.get(saucelector.user).type(user);
-        cy.get(saucelector.password).type(password);
+    userPassword(username:any ,password:any) {
+        cy.get(saucelector.user).clear().type(username);
+        cy.get(saucelector.password).clear().type(password);
         cy.get(saucelector.login).click();
     }
+
+    invalidDataErrorMsg () {
+        cy.get('.error-message-container.error').should('be.visible');
+    }
+    
 
     waitForElemnts() {
         cy.get(saucelector.menuBtn).should('be.visible');
