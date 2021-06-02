@@ -1,6 +1,6 @@
 {
+    "baseUrl":"https://www.saucedemo.com",
     "chromeWebSecurity": false,
-
     "watchForFileChanges": true,
     "defaultCommandTimeout": 4000,
     "downloadsFolder": "cypress/downloads"
